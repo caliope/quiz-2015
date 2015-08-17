@@ -4,6 +4,7 @@
       <td>
         <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
       </td>
+      <% if (session.user) {%>
       <td>
         <a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a>
       </td>
@@ -12,6 +13,7 @@
           <button type="submit" onclick="return confirm('Borrar: <%= quizes[i].pregunta %>');">Borrar</button>
         </form>
       </td>
+      <% } %>
     </tr>
   <% } %>
 </table>
