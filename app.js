@@ -29,6 +29,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Helpers dinamicos.
 app.use(function (req, res, next) {
+
+  var fechaActual = new Date();
+  var tiempoSecs = Math.floor(fechaActual.getTime()/1000);
+
+  if ( req.session.user && req.session.ultimaTransaccion ) {
+    if ( tiempoSecs > req.session.ultimaTransaccion + 120 ) {
+      delete req.session.user;
+    }
+  }
+
+  req.session.ultimaTransaccion = tiempoSecs;
+
   if (!req.path.match(/\/login|\/logout/)) {
     req.session.redir = req.path;
   }
